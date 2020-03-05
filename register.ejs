@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+    <!--Material icons--> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Registration</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #673d82">
+      <div class="container">
+          <a class="navbar-brand text-white ml-5" href="/">PuzzleApp</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav ml-auto mt-lg-0">
+             
+              <li class="nav-item ">
+                <a class="nav-link text-white ml-2" href="/signIn" role="button">Sign in</a>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+
+    <div class="container mt-2">
+            <div class="col-sm-12 col-md-8 mx-auto ">
+                <% mistakes.forEach(function(item){ %>
+                    <div class="alert alert-danger text-center" role="alert"><%= item%></div>
+                <%}); %>
+            </div>
+        
+    </div>
+
+    <!-- Sign in body -->
+    <div class="container">
+        <form class="mt-5" action="#" method="POST">
+        <div class="form-group col-sm-12 col-md-6 mx-auto ">
+                <div class="input-group mb-2 ">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text "><i class="material-icons">person</i></div>
+                    </div>
+                        <input type="text" class="form-control " name="user_name"  placeholder="Username" required>
+                </div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6 mx-auto ">
+                <div class="input-group mb-2 ">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text mt-3"><i class="material-icons">email</i></div>
+                    </div>
+                        <input type="email" class="form-control mt-3" name="user_email"  placeholder="Email" required>
+                </div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6  mx-auto">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text mt-3"><i class="material-icons">lock</i></div>
+                    </div>
+                        <input type="password" class="form-control mt-3" name="user_password" placeholder="Password" required>
+                </div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6  mx-auto">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text mt-3"><i class="material-icons">lock</i></div>
+                    </div>
+                        <input type="password" class="form-control mt-3" name="user_passwordCheck" placeholder="Confirm password" required>
+                </div>
+            </div>
+            <div class="form-group form-check col-sm-12 col-md-5 mx-auto">
+                    <input type="checkbox" name="termsAndConditions" class="form-check-input mt-3" id="exampleCheck1" required>
+                    <label class="form-check-label mt-2"  for="exampleCheck1">I agree with <a class="text-secondary" href="/terms">Terms and Conditions</a> </label>
+                  </div>
+
+            <div class="form-group col-sm-12 col-md-6 mx-auto">
+                <div class="input-group mt-3">
+                    <button type="submit" class="btn btn-outline-dark ml-auto mt-3">Register</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+
+    <footer class="footer ">
+        <div class="container">
+            <div class="row m-3 ">
+                <div class="col-sm-12 col-md-3 ml-5 text-center ">© 2019 PuzzleApp</div>
+                <div class="col-sm-12 col-md-6 text-center"><a class="text-secondary" href="/terms">Terms</a> <a class="text-secondary ml-3" href="/contact">Contact us</a> <a class="text-secondary ml-3" href="/report">Report bug</a></div>
+            </div>
+        </div>
+   </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="javascripts/frontend.js"></script>   
+  </body>
+</html>

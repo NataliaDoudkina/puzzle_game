@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+     <!--Material icons--> 
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>PuzzleApp</title>
+
+  </head>
+  <body >
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #673d82">
+      <div class="container">
+          <a class="navbar-brand text-white" href="/">PuzzleApp</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbar">
+              <ul class="navbar-nav ml-auto mt-lg-0">
+                  <div class="row justify-content-md-center">
+                      <div class="col-sm-12  text-center">
+                          <div style="display: inline-block; padding-right: 0.1%;"><a  class="btn btn-success  btn-block score" href = "/chat" role="button" > Chat </a>
+                          </div> 
+                            <div style="display: inline-block; padding-right: 0.1%;"><button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#displayTop"> Top scores </button>
+                            </div> 
+                  <div class="dropdown" style="display: inline-block; padding-right: 0.1%;">
+                      <button class="btn btn-success dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Pictures </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 50%; padding-right: 0.1%;">
+                        <a class="dropdown-item" href="/category/animals">Animals</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/category/dogs">Dogs</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/category/geography">Geography</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/category/nature">Nature</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/category/wonders">Wonders</a>
+                      </div>
+                    </div>
+  </div>
+  </div>
+           
+              </ul>
+            <a class="nav-link text-white ml-2 signIn" href="/signIn" role="button">Sign in</a>
+             <!-- Account dropdown that is shown when user is logged in -->
+            <div class="dropdown show  account">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account
+                            </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/accountSettings">Account Settings</a>
+                    <div class="dropdown-divider"></div>
+                  <a class="dropdown-item logOut" href="/logOut">Log out</a>
+                </div>
+            </div>
+          </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4 ">
+        <div class="row justify-content-center">
+            <canvas id="canvas"></canvas>
+        </div>
+        <div class="row mt-3  " style = "padding-left: 10%">
+            <div class="col-sm-4 text-right">
+                <button type="button" class="btn btn-outline-primary" id="startPuzzle">Start puzzle</button> 
+             
+                <button type="button" class="btn btn-outline-primary ml-2" id="reload">Reload</button>
+               
+                <a class="btn btn-outline-primary ml-2 score"  href = "/puzzleAction/score/<%=name%>/">Save Result</a>  
+            </div>
+            <div class="col-sm-2">
+             
+              <h4 class="text-primary">Time: <span id="displayTimer">0</span></h4> 
+            </div>
+          
+             <div class="col-sm-3 ">
+                <div class="dropdown">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#displayHelp">
+                               Help
+                              </button>                             
+                        <a class="btn btn-outline-primary dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Difficutly</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="?difficulty=4">Easy</a>
+                            <a class="dropdown-item" href="?difficulty=6">Medium</a>
+                            <a class="dropdown-item" href="?difficulty=8">Hard</a>
+                        </div>
+                </div>
+             </div> 
+             
+             <div class="col-sm-3" ><h4 class="text-primary" id="currentDifficulty"></h4></div>
+        </div>
+    </div>
+
+ 
+      <!-- Modal display picture help -->
+      <div class="modal fade  bd-example-modal-lg" id="displayHelp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img src="/public/images/<%=name%>.jpg" style="width: 100%">
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="modal fade  bd-example-modal-lg" id="displayTop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                         
+                                <h4 style="text-align: center">Top scores:</h4>
+                                <div><table  class="table table-striped">
+                                        <% for(var i=0; i<pics.length; i++) {%>
+                                          <tr>
+                                            <td><%= pics[i].user %></td>
+                                              <td><%= pics[i].picture %></td>
+                                              <td><%= pics[i].score %></td>
+                                          </tr>
+                                         <% } %>
+                                    </table>
+                                  </div>
+                                      </div>
+                              
+                  </div>
+              </div>
+            </div>
+          </div>
+    
+    
+     
+
+    <div class="container mt-5">
+      <div class="row ">
+        <div class="col-sm-8 offset-sm-2" style="text-align: justify">
+          <%-description %>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row m-3 ">
+                <div class="col-sm-12 col-md-3 ml-5 text-center ">© 2019 PuzzleApp</div>
+                <div class="col-sm-12 col-md-6 text-center"><a class="text-secondary" href="/terms">Terms</a> <a class="text-secondary ml-3" href="/contact">Contact us</a> <a class="text-secondary ml-3" href="/report">Report bug</a></div>
+            </div>
+        </div>
+   </footer>
+ <!-- Moodal -->
+   <div class="modal fade" id="gameOver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-center"><h1 class="text-warning">Well done !</h1> <p></p>    
+                <h3 class="text-primary align-middle" ><i class="material-icons" >star</i> Your time: <span id="timeResult"></span> sec <i class="material-icons" >star</i></h3></div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="/javascripts/frontend.js"></script> 
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let PUZZLE_DIFFICULTY = urlParams.get('difficulty');
+        const PUZZLE_HOVER_TINT = '#009900';
+
+        var _stage;
+        var _canvas;
+
+        var _img;
+        var _pieces;
+        var _puzzleWidth;
+        var _puzzleHeight;
+        var _pieceWidth;
+        var _pieceHeight;
+        var _currentPiece;
+        var _currentDropPiece;  
+        var _mouse;
+
+        (function init(){
+            _img = new Image();
+            _img.addEventListener('load',onImage,false);
+            _img.src = '/public/images/<%=name%>.jpg';
+            document.cookie = "picName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+         //  document.cookie = 'picName='+'<%=name%>'+'; expires=Wed, 1 Jan 1970 13:47:11 UTC; path=/'
+        })();
+
+        function onImage(e){
+            _pieceWidth = Math.floor(_img.width / PUZZLE_DIFFICULTY)
+            _pieceHeight = Math.floor(_img.height / PUZZLE_DIFFICULTY)
+            _puzzleWidth = _pieceWidth * PUZZLE_DIFFICULTY;
+            _puzzleHeight = _pieceHeight * PUZZLE_DIFFICULTY;
+            setCanvas();
+            initPuzzle();
+        }
+
+        function setCanvas(){
+            _canvas = document.getElementById('canvas');
+            _stage = _canvas.getContext('2d');
+            _canvas.width = _puzzleWidth;
+            _canvas.height = _puzzleHeight;
+            _canvas.style.border = "1px solid black";
+        }
+
+        function initPuzzle(){
+            _pieces = [];
+            _mouse = {x:0,y:0};
+            _currentPiece = null;
+            _currentDropPiece = null;
+            _stage.drawImage(_img, 0, 0, _puzzleWidth, _puzzleHeight, 0, 0, _puzzleWidth, _puzzleHeight);
+            buildPieces();
+        }
+
+
+        function buildPieces(){
+            var i;
+            var piece;
+            var xPos = 0;
+            var yPos = 0;
+            for(i = 0;i < PUZZLE_DIFFICULTY * PUZZLE_DIFFICULTY;i++){
+                piece = {};
+                piece.sx = xPos;
+                piece.sy = yPos;
+                _pieces.push(piece);
+                xPos += _pieceWidth;
+                if(xPos >= _puzzleWidth){
+                    xPos = 0;
+                    yPos += _pieceHeight;
+                }
+            }
+            document.getElementById('startPuzzle').addEventListener('click', function(){
+                shufflePuzzle();
+                document.getElementById('displayTimer').innerHTML = 0;
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
+                timer();
+
+            })
+        }
+
+        function shufflePuzzle(){
+            _pieces = shuffleArray(_pieces);
+            _stage.clearRect(0,0,_puzzleWidth,_puzzleHeight);
+            var i;
+            var piece;
+            var xPos = 0;
+            var yPos = 0;
+            for(i = 0;i < _pieces.length;i++){
+                piece = _pieces[i];
+                piece.xPos = xPos;
+                piece.yPos = yPos;
+                _stage.drawImage(_img, piece.sx, piece.sy, _pieceWidth, _pieceHeight, xPos, yPos, _pieceWidth, _pieceHeight);
+                _stage.strokeRect(xPos, yPos, _pieceWidth,_pieceHeight);
+                xPos += _pieceWidth;
+                if(xPos >= _puzzleWidth){
+                    xPos = 0;
+                    yPos += _pieceHeight;
+                }
+            }
+            document.onmousedown = onPuzzleClick;
+        }
+
+        function onPuzzleClick(e){
+            if(e.layerX || e.layerX == 0){
+                let canv = document.getElementById('canvas');
+                let top = Math.floor(canv.getBoundingClientRect().top);
+                let left = Math.floor(canv.getBoundingClientRect().left);
+                _mouse.x = (e.layerX - _canvas.offsetLeft) + left;
+                _mouse.y = (e.layerY - _canvas.offsetTop) + top;
+                console.log('x:', _mouse.x , 'y:', _mouse.y )
+            }
+            else if(e.offsetX || e.offsetX == 0){
+                _mouse.x = e.offsetX - _canvas.offsetLeft;
+                _mouse.y = e.offsetY - _canvas.offsetTop;
+                console.log('2x-', _mouse.x , '2y-', _mouse.y )
+            }
+
+
+            _currentPiece = checkPieceClicked();
+            if(_currentPiece != null){
+                _stage.clearRect(_currentPiece.xPos,_currentPiece.yPos,_pieceWidth,_pieceHeight);
+                _stage.save();
+                _stage.globalAlpha = .9;
+                _stage.drawImage(_img, _currentPiece.sx, _currentPiece.sy, _pieceWidth, _pieceHeight, _mouse.x - (_pieceWidth / 2), _mouse.y - (_pieceHeight / 2), _pieceWidth, _pieceHeight);
+                _stage.restore();
+                document.onmousemove = updatePuzzle;
+                document.onmouseup = pieceDropped;
+            }
+        }
+
+        function checkPieceClicked(){
+            var i;
+            var piece;
+            for(i = 0;i < _pieces.length;i++){
+                piece = _pieces[i];
+                if(_mouse.x < piece.xPos || _mouse.x > (piece.xPos + _pieceWidth) || _mouse.y < piece.yPos || _mouse.y > (piece.yPos + _pieceHeight)){
+                    //PIECE NOT HIT
+                }
+                else{
+                    return piece;
+                }
+            }
+            return null;
+        }
+
+        function updatePuzzle(e){
+            _currentDropPiece = null;
+            if(e.layerX || e.layerX == 0){
+                let canv = document.getElementById('canvas');
+                let top = Math.floor(canv.getBoundingClientRect().top);
+                let left = Math.floor(canv.getBoundingClientRect().left);
+                _mouse.x = (e.layerX - _canvas.offsetLeft) + left;
+                _mouse.y = (e.layerY - _canvas.offsetTop) + top;
+            }
+            else if(e.offsetX || e.offsetX == 0){
+                _mouse.x = e.offsetX - _canvas.offsetLeft;
+                _mouse.y = e.offsetY - _canvas.offsetTop;
+            }
+            _stage.clearRect(0,0,_puzzleWidth,_puzzleHeight);
+            var i;
+            var piece;
+            for(i = 0;i < _pieces.length;i++){
+                piece = _pieces[i];
+                if(piece == _currentPiece){
+                    continue;
+                }
+                _stage.drawImage(_img, piece.sx, piece.sy, _pieceWidth, _pieceHeight, piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
+                _stage.strokeRect(piece.xPos, piece.yPos, _pieceWidth,_pieceHeight);
+                if(_currentDropPiece == null){
+                    if(_mouse.x < piece.xPos || _mouse.x > (piece.xPos + _pieceWidth) || _mouse.y < piece.yPos || _mouse.y > (piece.yPos + _pieceHeight)){
+                        //NOT OVER
+                    }
+                    else{
+                        _currentDropPiece = piece;
+                        _stage.save();
+                        _stage.globalAlpha = .4;
+                        _stage.fillStyle = PUZZLE_HOVER_TINT;
+                        _stage.fillRect(_currentDropPiece.xPos,_currentDropPiece.yPos,_pieceWidth, _pieceHeight);
+                        _stage.restore();
+                    }
+                }
+            }
+            _stage.save();
+            _stage.globalAlpha = .6;
+            _stage.drawImage(_img, _currentPiece.sx, _currentPiece.sy, _pieceWidth, _pieceHeight, _mouse.x - (_pieceWidth / 2), _mouse.y - (_pieceHeight / 2), _pieceWidth, _pieceHeight);
+            _stage.restore();
+            _stage.strokeRect( _mouse.x - (_pieceWidth / 2), _mouse.y - (_pieceHeight / 2), _pieceWidth,_pieceHeight);
+        }
+
+        function pieceDropped(e){
+            document.onmousemove = null;
+            document.onmouseup = null;
+            if(_currentDropPiece != null){
+                var tmp = {xPos:_currentPiece.xPos,yPos:_currentPiece.yPos};
+                _currentPiece.xPos = _currentDropPiece.xPos;
+                _currentPiece.yPos = _currentDropPiece.yPos;
+                _currentDropPiece.xPos = tmp.xPos;
+                _currentDropPiece.yPos = tmp.yPos;
+            }
+            resetPuzzleAndCheckWin();
+        }
+
+        function resetPuzzleAndCheckWin(){
+            _stage.clearRect(0,0,_puzzleWidth,_puzzleHeight);
+            var gameWin = true;
+            var i;
+            var piece;
+            for(i = 0;i < _pieces.length;i++){
+                piece = _pieces[i];
+                _stage.drawImage(_img, piece.sx, piece.sy, _pieceWidth, _pieceHeight, piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
+                _stage.strokeRect(piece.xPos, piece.yPos, _pieceWidth,_pieceHeight);
+                if(piece.xPos != piece.sx || piece.yPos != piece.sy){
+                    gameWin = false;
+                }
+            }
+            if(gameWin){
+                $("#gameOver").modal('show');
+              setTimeout( function(){
+                $("#gameOver").modal('hide')
+            }, 3000);
+            gameOver();
+            }
+        }
+
+        function gameOver(){
+            document.onmousedown = null;
+            document.onmousemove = null;
+            document.onmouseup = null;
+            window.clearInterval(interval);
+            document.getElementById('timeResult').innerHTML = sec;
+           document.cookie = 'time='+document.getElementById('timeResult').innerHTML+'; expires=Wed, 1 Jan 2070 13:47:11 UTC; path=/'
+      //      document.cookie = 'picName='+'<%=name%>'+'; expires=Wed, 1 Jan 2070 13:47:11 UTC; path=/'
+   //   window.location.href="/puzzleAction/score/<%=name%>/"+document.getElementById('timeResult').innerHTML;
+  
+            initPuzzle();
+            
+        }
+
+        function shuffleArray(o){
+            for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+            return o;
+        }
+
+        //reload puzzle on button click 
+        document.getElementById('reload').addEventListener('click', gameOver);
+        //
+        (function displayDifficulty(){
+            const urlParams = new URLSearchParams(window.location.search);
+            let PUZZLE_DIFFICULTY = urlParams.get('difficulty');
+            let diffValue = 'Easy';
+            if (PUZZLE_DIFFICULTY == 6){
+                diffValue = 'Medium'
+            }
+            if (PUZZLE_DIFFICULTY == 8){
+                diffValue = 'Hard'
+            }
+            document.getElementById('currentDifficulty').innerHTML = diffValue;
+        })();
+
+        // timer functionality 
+        let sec = 0;
+        let interval;
+        
+       function timer(){
+           if(interval != undefined){
+               window.clearInterval(interval);
+               interval = undefined;
+               sec=0;
+           }
+         interval = window.setInterval(calcSeconds, 1000);
+       }
+
+       function calcSeconds(){
+           sec++;
+           document.getElementById('displayTimer').innerHTML = sec;
+           
+       }
+
+    
+    </script>  
+  </body>
+</html>
